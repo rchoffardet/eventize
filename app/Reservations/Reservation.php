@@ -6,6 +6,13 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Reservation extends Model
+/**
+ * App\Reservations\Reservation
+ *
+ * @property-read \App\Events\Event $event
+ * @property-read \App\User $user
+ * @mixin \Eloquent
+ */
 {
     public function  __construct() {
         parent::__construct();

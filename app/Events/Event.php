@@ -5,6 +5,12 @@ use App\Payments\Amountable;
 use App\Reservations\Reservation;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Events\Event
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Reservations\Reservation[] $reservations
+ * @mixin \Eloquent
+ */
 class Event extends Model implements Amountable
 {
     // Relations
