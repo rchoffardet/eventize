@@ -26,31 +26,15 @@ class ReservationTest extends TestCase
     }
 
     /** @test */
-    public function reservation_can_be_paid()
+    public function reservation_compute_correct_price_from_event()
     {
         // Arrange
-        $reservation = new Reservation();
+        $event = new Event(['amount' => 100]);
 
         // Act
-        $reservation->paid_at = now();
+        $reservation = Reservation::fromEvent($event);
 
         // Assert
-        $this->assertTrue($reservation->isPaid());
-    }
-
-    /** @test */
-    public function reservation_can_be_paid_by_an_user()
-    {
-        // Arrange
-        $reservation = new Reservation();
-        $reservation->amount = 100;
-        $user = new User();
-
-        // Act
-        $reservation->paidBy($user);
-
-        // Assert
-        $this->assertTrue($reservation->isPaid());
-
+        $this->assertEquals($event->amount, $reservation->amount);
     }
 }

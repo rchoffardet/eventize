@@ -3,34 +3,35 @@ namespace App\Payments;
 
 use App\Payments\Gateways\PaymentGateway;
 use App\User;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Support\Arrayable;
 
-class Payment extends Model
+class Payment implements Arrayable
 {
     private $gateway;
+    private $succeed_at;
+    private $amountable;
+    private $user;
 
     public function __construct(PaymentGateway $gateway, User $user, Amountable $amountable)
     {
         $this->gateway = $gateway;
-
-        parent::__construct([
-            'amount' => $amountable->toAmount(),
-            'user_id' => $user->id,
-        ]);
+        $this->amountable = $amountable;
+        $this->user = $user;
     }
-
-    // Relations
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    // Business logic
 
     public function execute($payload)
     {
         $this->gateway->verify($this, $payload);
+    }
+
+    public function amount()
+    {
+        return $this->amountable->toAmount();
+    }
+
+    public function succeed()
+    {
+        $this->succeed_at = now();
     }
 
     public function isSuccessful()
@@ -38,8 +39,12 @@ class Payment extends Model
         return $this->succeed_at != null;
     }
 
-    public function succeed()
+    public function toArray()
     {
-        $this->succeed_at = now();
+        return [
+            'user_id'       => $this->user->id,
+            'amount'        => $this->amount(),
+            'succeed_at'    => $this->succeed_at,
+        ];
     }
 }

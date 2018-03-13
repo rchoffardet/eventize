@@ -4,6 +4,7 @@ namespace Tests\Unit\Payments;
 use App\Events\Event;
 use App\Payments\Gateways\FakePaymentGateway;
 use App\Payments\Payment;
+use App\Reservations\Reservation;
 use App\User;
 use Tests\TestCase;
 
