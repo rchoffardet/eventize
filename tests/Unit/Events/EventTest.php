@@ -21,17 +21,4 @@ class EventTest extends TestCase
         $this->assertTrue(true);
 
     }
-
-    /** @test */
-    public function event_can()
-    {
-        // Arrange
-
-
-        // Act
-
-
-        // Assert
-
-    }
 }
