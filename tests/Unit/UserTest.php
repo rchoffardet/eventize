@@ -15,12 +15,11 @@ class UserTest extends TestCase
     public function user_can_book_a_reservation()
     {
         // Arrange
-        $event = new Event();
-        $reservation = Reservation::fromEvent($event);
-        $user = new User();
+        $event = factory(Event::class)->create();
+        $user = factory(User::class)->create();
 
         // Act
-        $user->book($reservation);
+        $reservation = Reservation::fromEventAndUser($event, $user);
 
         // Assert
         $this->assertEquals($user->id, $reservation->user_id);

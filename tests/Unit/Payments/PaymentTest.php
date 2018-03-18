@@ -15,7 +15,8 @@ class PaymentTest extends TestCase
     {
         // Arrange
         $user = new User();
-        $amountable = new Event(['amount' => 100]);
+        $event = new Event(['amount' => 100]);
+        $amountable = Reservation::fromEventAndUser($event, $user);
         $paymentGateway = new FakePaymentGateway();
         $payment = new Payment($paymentGateway, $user, $amountable);
         $payload = null;

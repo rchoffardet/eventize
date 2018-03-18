@@ -18,7 +18,7 @@ class CreateReservationsTable extends Migration
             $table->unsignedInteger('event_id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('amount');
-            $table->timestamp('paid_at');
+            $table->timestamp('paid_at')->nullable();
             $table->timestamps();
         });
     }

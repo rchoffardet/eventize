@@ -14,11 +14,24 @@ class EventTest extends TestCase
         // Arrange
 
         // Act
-        $event = new Event();
+        $event = new Event(['amount' => 100]);
         $event->save();
 
         // Assert
         $this->assertTrue(true);
+
+    }
+
+    /** @test */
+    public function event_can()
+    {
+        // Arrange
+
+
+        // Act
+
+
+        // Assert
 
     }
 }

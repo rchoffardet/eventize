@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * App\Events\Event
  *
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Reservations\Reservation[] $reservations
+ * @property int $amount
  * @mixin \Eloquent
  */
 class Event extends Model implements Amountable

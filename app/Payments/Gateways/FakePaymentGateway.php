@@ -7,6 +7,6 @@ class FakePaymentGateway implements PaymentGateway
 {
     public function verify(Payment $payment, $payload)
     {
-        $payment->succeed();
+        return true;
     }
 }

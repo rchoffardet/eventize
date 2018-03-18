@@ -9,29 +9,38 @@ class Payment implements Arrayable
 {
     private $gateway;
     private $succeed_at;
-    private $amountable;
+    private $payable;
     private $user;
 
-    public function __construct(PaymentGateway $gateway, User $user, Amountable $amountable)
+    public function __construct(PaymentGateway $gateway, User $user, Payable $payable)
     {
         $this->gateway = $gateway;
-        $this->amountable = $amountable;
-        $this->user = $user;
+        $this->payable = $payable;
+        $this->user    = $user;
     }
 
     public function execute($payload)
     {
-        $this->gateway->verify($this, $payload);
+        if($this->gateway->verify($this, $payload))
+        {
+            $this->succeed();
+            $this->payable->pay();
+        }
     }
 
     public function amount()
     {
-        return $this->amountable->toAmount();
+        return $this->payable->toAmount();
     }
 
     public function succeed()
     {
         $this->succeed_at = now();
+    }
+
+    public function succeedAt()
+    {
+        return $this->succeed_at;
     }
 
     public function isSuccessful()
